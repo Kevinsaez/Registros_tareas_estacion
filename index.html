@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro de tareas diarias · Estaciones</title>
+  <meta name="theme-color" content="#0f2a43">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <a class="skip-link" href="#formulario">Ir al formulario</a>
+
+  <header class="cabecera">
+    <div class="contenedor">
+      <p class="cabecera__linea">Ferrocarril San Martín</p>
+      <h1 class="cabecera__titulo">Registro de tareas diarias en estaciones</h1>
+      <p class="cabecera__texto">Completalo al terminar tu turno. Lleva menos de un minuto.</p>
+    </div>
+  </header>
+
+  <main class="contenedor principal">
+    <div id="aviso" class="mensaje mensaje--aviso" role="alert" hidden></div>
+
+    <form id="formulario" class="formulario" novalidate>
+
+      <section class="bloque" aria-labelledby="t-jornada">
+        <h2 id="t-jornada" class="bloque__titulo">Datos de la jornada</h2>
+
+        <div class="campo">
+          <label for="estacion">Estación</label>
+          <select id="estacion" name="estacion" required aria-describedby="error-estacion">
+            <option value="">Elegí una estación</option>
+          </select>
+          <p id="error-estacion" class="error" hidden></p>
+        </div>
+
+        <fieldset class="campo">
+          <legend>Turno</legend>
+          <div id="turnos" class="segmentado"></div>
+          <p id="error-turno" class="error" hidden></p>
+        </fieldset>
+
+        <div class="campo">
+          <label for="fecha">Fecha de la jornada</label>
+          <input type="date" id="fecha" name="fecha" required aria-describedby="error-fecha">
+          <p id="error-fecha" class="error" hidden></p>
+        </div>
+      </section>
+
+      <section class="bloque" aria-labelledby="t-tareas">
+        <h2 id="t-tareas" class="bloque__titulo">Tareas</h2>
+        <p class="ayuda">Marcá una opción para cada tarea. Todas vienen como "Realizada": cambiá solo las que no se
+          cumplieron.</p>
+        <ul id="leyenda" class="leyenda"></ul>
+        <div id="tareas" class="tareas"></div>
+      </section>
+
+      <section class="bloque" aria-labelledby="t-cierre">
+        <h2 id="t-cierre" class="bloque__titulo">Observaciones y responsable</h2>
+
+        <div class="campo">
+          <label for="observaciones">Observaciones <span class="opcional">(opcional)</span></label>
+          <textarea id="observaciones" name="observaciones" rows="4" maxlength="1000"
+            placeholder="Si alguna tarea no se realizó, contá el motivo."></textarea>
+        </div>
+
+        <div class="fila">
+          <div class="campo">
+            <label for="legajo">Legajo</label>
+            <input type="text" id="legajo" name="legajo" inputmode="numeric" maxlength="15" autocomplete="off" required
+              aria-describedby="error-legajo">
+            <p id="error-legajo" class="error" hidden></p>
+          </div>
+          <div class="campo">
+            <label for="nombre">Nombre y apellido</label>
+            <input type="text" id="nombre" name="nombre" maxlength="80" autocomplete="name" required
+              aria-describedby="error-nombre">
+            <p id="error-nombre" class="error" hidden></p>
+          </div>
+        </div>
+      </section>
+
+      <div id="estado" class="mensaje mensaje--error" role="alert" hidden></div>
+
+      <button type="submit" id="enviar" class="boton">Guardar registro</button>
+    </form>
+
+    <section id="exito" class="exito" aria-live="polite" hidden>
+      <div class="exito__icono" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+          stroke-linejoin="round" focusable="false">
+          <path d="M5 12.5l4.5 4.5L19 7.5" />
+        </svg>
+      </div>
+      <h2 id="exito-titulo" class="exito__titulo" tabindex="-1">Registro guardado</h2>
+      <p id="exito-detalle" class="exito__texto"></p>
+      <button type="button" id="otra" class="boton">Cargar otra jornada</button>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p>Administración de limpieza · Ferrocarril San Martín</p>
+    </div>
+  </footer>
+
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+
+</html>

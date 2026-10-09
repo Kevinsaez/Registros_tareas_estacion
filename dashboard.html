@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tablero · Registro de tareas diarias en estaciones</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0f2a43">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./mnt/user-data/outputs/registro-tareas/dashboard/css/styles.css">
+</head>
+
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="cabecera">
+    <div class="contenedor">
+      <a id="volver" class="cabecera__volver" href="#" hidden>Volver al portal</a>
+      <p class="cabecera__linea">Ferrocarril San Martín · Administración de limpieza</p>
+      <h1 class="cabecera__titulo">Tareas diarias en estaciones</h1>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor principal">
+
+    <!-- Acceso -->
+    <section id="acceso" class="acceso" aria-labelledby="t-acceso">
+      <h2 id="t-acceso" class="acceso__titulo">Ingresá la clave</h2>
+      <p class="acceso__texto">Este tablero muestra información de gestión de uso interno.</p>
+      <form id="form-acceso" novalidate>
+        <label for="clave">Clave de acceso</label>
+        <input type="password" id="clave" autocomplete="current-password" required aria-describedby="error-acceso">
+        <p id="error-acceso" class="error" role="alert" hidden></p>
+        <button type="submit" id="btn-acceso" class="boton">Ingresar</button>
+      </form>
+    </section>
+
+    <!-- Tablero -->
+    <div id="panel" hidden>
+
+      <div class="filtros" role="group" aria-label="Filtros del tablero">
+        <div class="filtro">
+          <label for="f-mes">Mes</label>
+          <input type="month" id="f-mes">
+        </div>
+        <div class="filtro">
+          <label for="f-estacion">Estación</label>
+          <select id="f-estacion">
+            <option value="">Todas</option>
+          </select>
+        </div>
+        <div class="filtro">
+          <label for="f-turno">Turno</label>
+          <select id="f-turno">
+            <option value="">Todos</option>
+          </select>
+        </div>
+        <div class="filtro filtro--acciones">
+          <button type="button" id="btn-actualizar" class="boton boton--sec">Actualizar</button>
+          <button type="button" id="btn-salir" class="boton boton--texto">Salir</button>
+        </div>
+      </div>
+      <p id="estado-carga" class="estado-carga" role="status" aria-live="polite"></p>
+
+      <section class="kpis" aria-label="Indicadores del período" id="kpis"></section>
+
+      <div class="paneles">
+        <section class="panel" aria-labelledby="t-estacion">
+          <h2 id="t-estacion" class="panel__titulo">Cumplimiento por estación</h2>
+          <p class="panel__ayuda">Tareas realizadas según cronograma sobre las que aplican.</p>
+          <ul id="por-estacion" class="barras"></ul>
+        </section>
+
+        <div class="columna">
+          <section class="panel" aria-labelledby="t-turno">
+            <h2 id="t-turno" class="panel__titulo">Cumplimiento por turno</h2>
+            <ul id="por-turno" class="barras"></ul>
+          </section>
+          <section class="panel" aria-labelledby="t-tarea">
+            <h2 id="t-tarea" class="panel__titulo">Cumplimiento por tarea</h2>
+            <ul id="por-tarea" class="barras barras--tareas"></ul>
+          </section>
+        </div>
+      </div>
+
+      <section class="panel panel--ancho" aria-labelledby="t-grilla">
+        <h2 id="t-grilla" class="panel__titulo">Grilla mensual</h2>
+        <div id="grilla"></div>
+      </section>
+
+      <section class="panel panel--ancho" aria-labelledby="t-incid">
+        <h2 id="t-incid" class="panel__titulo">Tareas no realizadas o cubiertas por otra estación</h2>
+        <div id="incidencias"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p>Administración de limpieza · Ferrocarril San Martín</p>
+    </div>
+  </footer>
+
+  <script src="./mnt/user-data/outputs/registro-tareas/dashboard/js/config.js"></script>
+  <script src="./mnt/user-data/outputs/registro-tareas/dashboard/js/app.js"></script>
+</body>
+
+</html>

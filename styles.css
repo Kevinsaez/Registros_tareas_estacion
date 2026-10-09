@@ -1,0 +1,221 @@
+/* ==========================================================
+   Registro de tareas diarias · Formulario de carga
+   Misma base visual que el portal.
+   ========================================================== */
+
+:root {
+  --riel: #0f2a43;
+  --riel-medio: #1d4a73;
+  --senal: #f2b705;
+  --fondo: #eef2f6;
+  --superficie: #ffffff;
+  --borde: #c3cfdb;
+  --texto: #14202c;
+  --texto-suave: #4a5a6a;
+
+  --c1: #176b3a; --c1-fondo: #e1f3e8;
+  --c2: #a3202a; --c2-fondo: #fbe3e4;
+  --c3: #7a4b00; --c3-fondo: #fdf0d2;
+  --c4: #3e4d5c; --c4-fondo: #e6ebf0;
+
+  --radio: 14px;
+  --sombra: 0 1px 2px rgba(15, 42, 67, .08), 0 6px 18px rgba(15, 42, 67, .07);
+  --ancho: 760px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--texto);
+  background: var(--fondo);
+}
+
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 1.5rem);
+}
+
+/* ---------- Accesibilidad ---------- */
+
+.skip-link {
+  position: absolute; left: 1rem; top: -4rem; z-index: 10;
+  padding: .75rem 1rem; background: var(--senal); color: var(--riel);
+  font-weight: 700; border-radius: 8px; text-decoration: none;
+}
+.skip-link:focus { top: 1rem; }
+
+:focus-visible { outline: 3px solid var(--senal); outline-offset: 2px; }
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--riel-medio);
+  outline-offset: 1px;
+}
+
+/* ---------- Cabecera ---------- */
+
+.cabecera {
+  position: relative;
+  background: var(--riel);
+  color: #fff;
+  padding-block: 1.75rem 2.1rem;
+}
+.cabecera::after {
+  content: "";
+  position: absolute; inset: auto 0 0 0; height: 6px;
+  background: repeating-linear-gradient(90deg, var(--senal) 0 28px, transparent 28px 40px);
+}
+.cabecera__linea { margin: 0 0 .35rem; color: #b9cde0; font-size: 1rem; }
+.cabecera__titulo { margin: 0; font-size: clamp(1.5rem, 5.5vw, 2.1rem); line-height: 1.15; }
+.cabecera__texto { margin: .6rem 0 0; color: #dbe7f2; }
+
+/* ---------- Formulario ---------- */
+
+.principal { flex: 1; padding-block: 1.5rem 2.5rem; }
+
+.formulario { display: grid; gap: 1.25rem; }
+
+.bloque {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 1.25rem;
+}
+.bloque__titulo { margin: 0 0 1rem; font-size: 1.2rem; color: var(--riel); }
+
+.campo { margin: 0 0 1.1rem; padding: 0; border: 0; min-width: 0; }
+.campo:last-child { margin-bottom: 0; }
+
+label, legend { display: block; padding: 0; margin-bottom: .4rem; font-weight: 700; }
+.opcional { font-weight: 400; color: var(--texto-suave); }
+
+input[type="text"], input[type="date"], select, textarea {
+  width: 100%;
+  min-height: 3rem;
+  padding: .65rem .8rem;
+  font: inherit;
+  color: var(--texto);
+  background: #fff;
+  border: 2px solid var(--borde);
+  border-radius: 10px;
+}
+textarea { resize: vertical; }
+
+.campo--invalido input, .campo--invalido select, .campo--invalido textarea { border-color: var(--c2); }
+
+.error { margin: .4rem 0 0; color: var(--c2); font-weight: 700; font-size: .95rem; }
+
+.ayuda { margin: 0 0 1rem; color: var(--texto-suave); }
+
+.fila { display: grid; gap: 1.1rem; }
+@media (min-width: 560px) { .fila { grid-template-columns: 1fr 2fr; } .fila .campo { margin-bottom: 0; } }
+
+/* Turno: tres botones grandes */
+.segmentado { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+.segmentado input, .opciones input {
+  position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;
+}
+.segmentado label {
+  margin: 0; min-height: 3rem; display: grid; place-items: center;
+  text-align: center; font-weight: 700;
+  border: 2px solid var(--borde); border-radius: 10px; background: #fff; cursor: pointer;
+}
+.segmentado input:checked + label { background: var(--riel); border-color: var(--riel); color: #fff; }
+.segmentado input:focus-visible + label,
+.opciones input:focus-visible + label { outline: 3px solid var(--senal); outline-offset: 2px; }
+
+/* ---------- Leyenda y tareas ---------- */
+
+.leyenda { list-style: none; margin: 0 0 1.25rem; padding: 0; display: grid; gap: .4rem; font-size: .95rem; }
+.leyenda li { display: flex; gap: .6rem; align-items: baseline; }
+.leyenda .num, .opcion__num {
+  display: inline-grid; place-items: center; flex: none;
+  width: 1.5rem; height: 1.5rem; border-radius: 50%;
+  font-size: .85rem; font-weight: 700;
+}
+.n1 { background: var(--c1-fondo); color: var(--c1); }
+.n2 { background: var(--c2-fondo); color: var(--c2); }
+.n3 { background: var(--c3-fondo); color: var(--c3); }
+.n4 { background: var(--c4-fondo); color: var(--c4); }
+
+.tareas { display: grid; gap: .9rem; }
+
+.tarea {
+  margin: 0; padding: 1rem; min-width: 0;
+  border: 1px solid var(--borde); border-radius: 12px; background: #fbfcfd;
+}
+.tarea__nombre { padding: 0; margin: 0 0 .7rem; font-weight: 700; color: var(--riel); }
+
+.opciones { display: grid; grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+@media (min-width: 640px) { .opciones { grid-template-columns: repeat(4, 1fr); } }
+
+.opcion {
+  margin: 0; min-height: 3rem; padding: .4rem .6rem;
+  display: flex; align-items: center; gap: .5rem;
+  font-weight: 400; font-size: .98rem; line-height: 1.2;
+  border: 2px solid var(--borde); border-radius: 10px; background: #fff; cursor: pointer;
+}
+.opciones input:checked + .opcion { font-weight: 700; }
+.opciones input:checked + .opcion--c1 { border-color: var(--c1); background: var(--c1-fondo); color: var(--c1); }
+.opciones input:checked + .opcion--c2 { border-color: var(--c2); background: var(--c2-fondo); color: var(--c2); }
+.opciones input:checked + .opcion--c3 { border-color: var(--c3); background: var(--c3-fondo); color: var(--c3); }
+.opciones input:checked + .opcion--c4 { border-color: var(--c4); background: var(--c4-fondo); color: var(--c4); }
+
+/* ---------- Mensajes y botón ---------- */
+
+.mensaje { margin: 0 0 1.25rem; padding: 1rem 1.25rem; border-radius: var(--radio); font-weight: 700; }
+.mensaje--aviso { background: var(--c3-fondo); color: var(--c3); }
+.mensaje--error { margin: 0; background: var(--c2-fondo); color: var(--c2); }
+
+.boton {
+  min-height: 3.25rem; padding: .75rem 1.5rem;
+  font: inherit; font-weight: 700; color: #fff;
+  background: var(--riel-medio); border: 0; border-radius: 12px; cursor: pointer;
+  transition: background .2s ease;
+}
+.boton:hover { background: var(--riel); }
+.boton:disabled { background: #7f93a6; cursor: wait; }
+.formulario .boton { width: 100%; }
+
+/* ---------- Pantalla de éxito ---------- */
+
+.exito {
+  text-align: center;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 2rem 1.25rem;
+}
+.exito__icono {
+  display: grid; place-items: center; margin: 0 auto 1rem;
+  width: 4rem; height: 4rem; border-radius: 50%;
+  background: var(--c1-fondo); color: var(--c1);
+}
+.exito__icono svg { width: 2rem; height: 2rem; }
+.exito__titulo { margin: 0 0 .5rem; font-size: 1.5rem; color: var(--riel); }
+.exito__titulo:focus { outline: none; }
+.exito__texto { margin: 0 auto 1.5rem; max-width: 40ch; color: var(--texto-suave); }
+
+/* ---------- Pie ---------- */
+
+.pie { padding-block: 1.25rem; border-top: 1px solid var(--borde); color: var(--texto-suave); font-size: .9375rem; }
+.pie p { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+@media (forced-colors: active) {
+  .segmentado label, .opcion { border: 2px solid ButtonText; }
+  .segmentado input:checked + label, .opciones input:checked + .opcion { border-color: Highlight; outline: 2px solid Highlight; }
+}
